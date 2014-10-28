@@ -1,0 +1,153 @@
+
+Creature file
+-------------
+
+# Ensimmäiset
+
+NAME: young cat
+CHAR: f
+HP: 5
+SPEED: 2
+ATK: 1
+DEF: 1
+LEVEL: 1
+FLAG: AGGRESSIVE
+FLAG: A_HIT
+
+NAME: novice rogue
+CHAR: p
+HP: 10
+SPEED: 3
+ATK: 1
+DEF: 1
+DROP: 0
+LEVEL: 1
+FLAG: AGGRESSIVE
+FLAG: A_HIT
+
+NAME: white skeleton
+CHAR: s
+HP: 10
+SPEED: 2
+ATK: 3
+DEF: 0
+DROP: 0
+LEVEL: 1
+FLAG: AGGRESSIVE
+FLAG: A_HIT
+
+Huomaa! lepakko EI ole aggressiivinen (eli se pakenee)
+
+NAME: fruit bat
+CHAR: b
+COLOR: YELLOW
+COLOR: BOLD
+HP: 10
+SPEED: 2
+ATK: 3
+DEF: 0
+DROP: 0
+LEVEL: 1
+
+# Moldit eivät liiku
+
+NAME: red mold
+CHAR: m
+COLOR: RED
+HP: 20
+SPEED: 2
+ATK: 1
+DEF: 0
+DROP: 0
+LEVEL: 1
+FLAG: AGGRESSIVE
+FLAG: A_HIT
+FLAG: CANT_MOVE
+
+NAME: yellow mold
+CHAR: m
+COLOR: YELLOW
+COLOR: BOLD
+HP: 20
+SPEED: 2
+ATK: 3
+DEF: 0
+DROP: 0
+LEVEL: 1
+FLAG: AGGRESSIVE
+FLAG: A_HIT
+FLAG: CANT_MOVE
+
+# Eläimet
+
+NAME: small brown dog
+CHAR: C
+COLOR: YELLOW
+HP: 7
+SPEED: 3
+ATK: 2
+DEF: 0
+DROP: 0
+LEVEL: 1
+FLAG: A_HIT
+
+NAME: tiny red snake
+CHAR: J
+COLOR: RED
+HP: 12
+SPEED: 1
+ATK: 2
+DEF: 0
+DROP: 0
+LEVEL: 1
+FLAG: A_HIT
+
+NAME: tiny yellow snake
+CHAR: J
+COLOR: YELLOW
+HP: 12
+SPEED: 1
+ATK: 2
+DEF: 0
+DROP: 0
+LEVEL: 1
+FLAG: A_HIT
+
+# Tason 1 vaarallisimmat
+
+NAME: blue baby dragon
+CHAR: d
+COLOR: BLUE
+HP: 30
+SPEED: 2
+ATK: 6
+DEF: 0
+DROP: 0
+LEVEL: 1
+FLAG: A_HIT
+FLAG: AGGRESSIVE
+
+NAME: green baby dragon
+CHAR: d
+COLOR: GREEN
+HP: 30
+SPEED: 2
+ATK: 6
+DEF: 0
+DROP: 0
+LEVEL: 1
+FLAG: A_HIT
+FLAG: AGGRESSIVE
+
+NAME: furry green mold
+CHAR: m
+COLOR: GREEN
+HP: 40
+SPEED: 2
+ATK: 8
+DEF: 4
+DROP: 0
+LEVEL: 1
+FLAG: A_HIT
+FLAG: AGGRESSIVE
+FLAG: CANT_MOVE
