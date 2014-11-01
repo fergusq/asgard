@@ -27,6 +27,7 @@ public:
 	void message(std::string);
 	void drawShortCreatureInfo(Creature*);
 	void showMessageLog();
+	bool target(bool (*)(int, int));
 
 	int getLevel();
 

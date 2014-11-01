@@ -260,6 +260,10 @@ void Map::drawMap(Player* p) {
 	}
 }
 
+void Map::drawOn(int x, int y, char chr) {
+	mvaddch(y-scrollY+1, x-scrollX+27, chr);
+}
+
 void Map::saveMap(std::ofstream *out) {
 	std::vector<itemNode> items;
 

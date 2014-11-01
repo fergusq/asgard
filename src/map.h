@@ -9,12 +9,12 @@
 #define MAP_H_
 
 class AsgardGame;
-class Creature;
 class Player;
-class Item;
 
 #include <vector>
 #include <fstream>
+#include "creature.h"
+#include "item.h"
 
 enum nodeType {
 	ITEM='x', CREATURE='X', ITEM_AND_CREATURE='w', WALL='#', FREE='.', UNKNOWN=' '
@@ -25,6 +25,15 @@ struct mapNode {
 	nodeType type;
 	Creature* creature;
 	Item * item;
+	
+	std::string getDescription() {
+		if (type==CREATURE) return "a " + creature->name();
+		if (type==ITEM) return item->name;
+		if (type==ITEM_AND_CREATURE) return std::string("multiple objects");
+		if (type==WALL) return std::string("a stone wall");
+		if (type==FREE) return std::string("floor");
+		else return std::string("unknown");
+	}
 };
 
 struct itemNode {
@@ -65,6 +74,7 @@ public:
 	bool inRange(int, int);
 	void onUpdate();
 	void drawMap(Player*);
+	void drawOn(int, int, char);
 	void saveMap(std::ofstream*);
 	void loadMap(std::ifstream*);
 };

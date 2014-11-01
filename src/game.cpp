@@ -269,6 +269,59 @@ void AsgardGame::showMessageLog() {
 	while ((tmp = getch()) != 27 && tmp != 'q');
 }
 
+bool AsgardGame::target(bool (*callback)(int, int)) {
+	int x = player->x;
+	int y = player->y;
+	int chr;
+	do {
+		map->drawMap(player);
+		map->drawOn(x, y, 'X');
+		mvprintw(0, 27, "%50s", "");
+		if (player->canSee(x, y, player->viewDistance()))
+			mvprintw(0, 27, "%s", map->getNode(x, y)->getDescription().c_str());
+		chr = getch();
+		switch (chr) {
+		case KEY_DOWN:
+		case '2':
+			if (y<MAP_SIZE_Y-1) y++;
+			break;
+		case KEY_UP:
+		case '8':
+			if (y>0) y--;
+			break;
+		case KEY_LEFT:
+		case '4':
+			if (x>0) x--;
+			break;
+		case KEY_RIGHT:
+		case '6':
+			if (x<MAP_SIZE_X-1) x++;
+			break;
+		case '1':
+			if (y<MAP_SIZE_Y-1) y++;
+			if (x>0) x--;
+			break;
+		case '3':
+			if (y<MAP_SIZE_Y-1) y++;
+			if (x<MAP_SIZE_X-1) x++;
+			break;
+		case '7':
+			if (y>0) y--;
+			if (x>0) x--;
+			break;
+		case '9':
+			if (y>0) y--;
+			if (x<MAP_SIZE_X-1) x++;
+			break;
+		case 27:
+		case 'q':
+			return false;
+		}
+	} while(chr != 10);
+	if (callback != 0) return callback(x, y);
+	else return false;
+}
+
 void AsgardGame::drawShortCreatureInfo(Creature* c) {
 	shortCreatureInfo = c;
 

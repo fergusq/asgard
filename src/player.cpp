@@ -183,8 +183,12 @@ void Player::onTurn() {
 			game->message("Game saved!");
 			legalCommand = false;
 			break;
-		case 'l': // 'log' näytä loki
+		case 'm': // 'message log' näytä loki
 			game->showMessageLog();
+			legalCommand = false;
+			break;
+		case 'l': // 'look' tutki ympäristöä
+			game->target(0);
 			legalCommand = false;
 			break;
 		case 'q':
