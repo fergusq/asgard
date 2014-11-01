@@ -22,7 +22,7 @@
  *
  * @returns true if there's line of sight
  *
- * @author unknown
+ * @author unknown, from http://www.roguebasin.com/index.php?title=Bresenham%27s_Line_Algorithm
  */
 bool SMath::los(int x1, int y1, int x2, int y2, int dis, Map* m) { // TODO etäisyydet
 
