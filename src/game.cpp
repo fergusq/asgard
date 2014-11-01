@@ -216,7 +216,7 @@ void AsgardGame::drawPlayerInfo() {
 }
 
 void AsgardGame::drawEnemyInfo() {
-	mvaddstr(24, 3, "                    ");
+	mvaddstr(24, 3, "                      ");
 
 	if (shortCreatureInfo == 0) return;
 
