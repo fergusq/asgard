@@ -206,9 +206,9 @@ void AsgardGame::drawPlayerInfo() {
 	line ++;
 
 	mvprintw(line, 3, "                    ");
-	if (player->getHealt() < player->getMaxHealt()) attron(COLOR_PAIR(8)); // korostetaan teksti jos pelaaja on menettänyt elämiä
-	mvprintw(line++, 3, "HP: %d/%d", player->getHealt(), player->getMaxHealt());
-	if (player->getHealt() < player->getMaxHealt())attroff(COLOR_PAIR(8));
+	if (player->getHealth() < player->getMaxHealth()) attron(COLOR_PAIR(8)); // korostetaan teksti jos pelaaja on menettänyt elämiä
+	mvprintw(line++, 3, "HP: %d/%d", player->getHealth(), player->getMaxHealth());
+	if (player->getHealth() < player->getMaxHealth())attroff(COLOR_PAIR(8));
 
 	mvprintw(line, 3, "                    ");
 	mvprintw(line++, 3, "LEVEL: %d", level);
@@ -222,7 +222,7 @@ void AsgardGame::drawEnemyInfo() {
 
 	std::string shortEnemyInfoStr;
 
-	int healtper = ((double(shortCreatureInfo->getHealt()) / double(shortCreatureInfo->getMaxHealt())) * 100);
+	int healtper = ((double(shortCreatureInfo->getHealth()) / double(shortCreatureInfo->getMaxHealth())) * 100);
 	healtper /= 5;
 
 
@@ -230,7 +230,7 @@ void AsgardGame::drawEnemyInfo() {
 		shortEnemyInfoStr.append("*");
 	}
 
-	if (healtper == 0 && shortCreatureInfo->getHealt() != 0) shortEnemyInfoStr += "*";
+	if (healtper == 0 && shortCreatureInfo->getHealth() != 0) shortEnemyInfoStr += "*";
 
 	mvaddch(24, 3, '[');
 

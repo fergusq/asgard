@@ -15,7 +15,7 @@
 struct CreatureModel {
 	std::string name;
 	int picture;
-	int maxhealt;
+	int maxhealth;
 	int speed;
 	int attack;
 	int armor;

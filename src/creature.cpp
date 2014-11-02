@@ -22,7 +22,7 @@ Creature::Creature(AsgardGame*g) {
 	game = g;
 	x = 0;
 	y = 0;
-	healt = getMaxHealt();
+	health = getMaxHealth();
 	c_speed = 1;
 }
 
@@ -52,7 +52,7 @@ bool Creature::tryMove(int x, int y) {
 		return false;
 }
 
-DamageTo Creature::calculateDamage(Creature * enemy) {
+DamageTo Creature::calculateDamage(DamageTo attack) {
 	// TODO lumotut esineet
 	int helmet = 0;
 	int body = 0;
@@ -71,28 +71,12 @@ DamageTo Creature::calculateDamage(Creature * enemy) {
 	int totalDR = ((helmet + boots) / 3 + body) / 3;
 	if (totalDR == 0) totalDR = 1;
 
-	int totalAR = 0;
-	int maxAR = 0;
-
-	for (int i = 0; i < 10; i++) {
-		if (enemy->armor.getItem(i) == 0) continue;
-		int harmPoints = enemy->armor.getItem(i)->attackPoints;
-		int harm = 0;
-
-		for (int j = 0; j < enemy->armor.getItem(i)->rollTimes; j++) {
-			harm += rand() % harmPoints + 1;
-		}
-
-		totalAR += harm;
-		maxAR += enemy->armor.getItem(i)->rollTimes*harmPoints;
-	}
-
-	if (rand()%20 < 4) totalAR = 0;
+	int totalAR = attack.damage;
+	int maxAR = attack.maxDamage;
 
 	if (totalAR <= totalDR) {
 		totalAR = 0;
 	}
-
 
 	DamageTo dmg;
 	dmg.damage = totalAR;
@@ -101,33 +85,51 @@ DamageTo Creature::calculateDamage(Creature * enemy) {
 	return dmg;
 }
 
-void Creature::takeDamage_Creature(Creature * enemy) {
-	// TODO taiat, muut suojaavat vaikutukset
-	DamageTo dmg0 = calculateDamage(enemy);
+DamageTo Creature::calculateAttack() {
+  	int totalAR = 0;
+	int maxAR = 0;
 
-	int dmg = dmg0.damage;
+	for (int i = 0; i < 10; i++) {
+		if (armor.getItem(i) == 0) continue;
+		int harmPoints = armor.getItem(i)->attackPoints;
+		int harm = 0;
 
-	if (dmg == 0) game->message("Hit missed.");
+		for (int j = 0; j < armor.getItem(i)->rollTimes; j++) {
+			harm += rand() % harmPoints + 1;
+		}
 
-	healt -= dmg;
-	if (healt <= 0) {
-		game->message("The " + name() + " died.");
-		healt = 0;
-		die();
-	} else {
-		if (dmg0.damage == dmg0.maxDamage) game->message("It was a great hit.");
-		if (dmg0.maxDamage - dmg < 3) game->message("The " + name() + " screams in pain!");
+		totalAR += harm;
+		maxAR += armor.getItem(i)->rollTimes*harmPoints;
 	}
+
+	if (rand()%20 < 4) totalAR = 0;
+
+	DamageTo dmg;
+	dmg.damage = totalAR;
+	dmg.maxDamage = maxAR;
+	return dmg;
 }
 
-void Creature::takeDamage(int dmg) {
-	// TODO armorit, taiat, muut suojaavat vaikutukset
-	healt -= dmg;
-	if (healt <= 0) {
-		healt = 0;
+void Creature::takeDamage_Creature(Creature * enemy) {
+	takeDamage(enemy->calculateAttack(), "Hit missed.", "It was a great hit.", "The " + name() + " screams in pain!", "The " + name() + " died!");
+}
+
+void Creature::takeDamage(DamageTo dmg) {
+	takeDamage(dmg, "", "", "The " + name() + " screams in pain!", "The " + name() + " died!");
+}
+
+void Creature::takeDamage(DamageTo dmg, std::string missed, std::string great, std::string scream, std::string died) {
+	dmg = calculateDamage(dmg);
+
+	health -= dmg.damage;
+	if (health <= 0) {
+		if (died != "") game->message(died);
+		health = 0;
 		die();
 	} else {
-
+		if (missed != "" && dmg.damage == 0) game->message(missed);
+		if (great != "" && dmg.maxDamage == dmg.damage) game->message(great);
+		if (scream != "" && dmg.maxDamage - dmg.damage < 3) game->message(scream);
 	}
 }
 
@@ -162,7 +164,7 @@ void Creature::onTurn() { // TODO parempi tekoäky, hyökkäystaktiikat, yms
 		return;
 	}
 
-	if (healt < getMaxHealt() / 2 && !(flags & AGGRESSIVE)) // jos elämiä on liian vähän JA olento ei ole aggressiivinen
+	if (health < getMaxHealth() / 2 && !(flags & AGGRESSIVE)) // jos elämiä on liian vähän JA olento ei ole aggressiivinen
 	{
 		if (state != ESCAPE) {
 			game->message("The " + name() + " flees in terror!");
@@ -170,7 +172,7 @@ void Creature::onTurn() { // TODO parempi tekoäky, hyökkäystaktiikat, yms
 		state = ESCAPE;
 	}
 
-	if (state == ESCAPE && healt == getMaxHealt()) state = ATTACK; // täysillä elämillä hyökkää
+	if (state == ESCAPE && health == getMaxHealth()) state = ATTACK; // täysillä elämillä hyökkää
 
 	if (state == ATTACK && !(flags & CANT_MOVE))
 		tryMoveTo(x+
@@ -186,8 +188,8 @@ void Creature::onTurn() { // TODO parempi tekoäky, hyökkäystaktiikat, yms
 }
 
 void Creature::onUpdate() {
-	if (rand()%10==0) healt++;
-	if (healt > getMaxHealt()) healt = getMaxHealt();
+	if (rand()%10==0) health++;
+	if (health > getMaxHealth()) health = getMaxHealth();
 }
 
 bool Creature::canSee(int x, int y, int dis) {
@@ -205,15 +207,19 @@ void Creature::drawCreature() {
 	addch('c'|COLOR_PAIR(6)|A_BOLD);
 }
 
-int Creature::getHealt() {
-	return healt;
+int Creature::getHealth() {
+	return health;
+}
+
+void Creature::setHealth(int hp) {
+	health = hp;
 }
 
 bool Creature::canSmell() {
 	return true; // TODO
 }
 
-int Creature::getMaxHealt() {
+int Creature::getMaxHealth() {
 	return 10; // TODO
 }
 

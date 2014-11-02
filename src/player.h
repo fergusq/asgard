@@ -15,16 +15,17 @@ class AsgardGame;
 
 class Player : public Creature {
 public:
-	Player(AsgardGame* g) : Creature(g) {c_speed = 2; healt = getMaxHealt();}
+	Player(AsgardGame* g) : Creature(g) {c_speed = 2; health = getMaxHealth();}
 	virtual ~Player() {}
 
 	virtual bool tryMove(int, int);
 	virtual void takeDamage_Creature(Creature*);
+	virtual void takeDamage(DamageTo);
 	virtual void die();
 	virtual void onTurn();
 	virtual void drawCreature();
 	virtual std::string name();
-	virtual int getMaxHealt();
+	virtual int getMaxHealth();
 
 	int viewDistance();
 

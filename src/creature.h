@@ -36,7 +36,8 @@ public:
 
 	virtual bool tryMove(int, int);
 	virtual void takeDamage_Creature(Creature*);
-	virtual void takeDamage(int);
+	virtual void takeDamage(DamageTo);
+	void takeDamage(DamageTo, std::string, std::string, std::string, std::string);
 	virtual void die();
 	virtual void onTurn();
 	virtual void onUpdate();
@@ -45,8 +46,11 @@ public:
 	virtual std::string name();
 	virtual int picture();
 
-	int getHealt();
-	virtual int getMaxHealt();
+	int getHealth();
+	void setHealth(int health);
+	virtual int getMaxHealth();
+
+	DamageTo calculateAttack();
 
 	bool canSee(int, int, int);
 
@@ -60,10 +64,10 @@ public:
 	AI_STATE state;
 protected:
 	virtual bool canSmell();
-	DamageTo calculateDamage(Creature*);
+	DamageTo calculateDamage(DamageTo);
 
 	AsgardGame* game;
-	short int healt;
+	short int health;
 	short int c_speed; // TODO temp
 	int c_picture;
 

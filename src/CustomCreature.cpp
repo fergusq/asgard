@@ -14,11 +14,11 @@
 #include "item.h"
 #include "ConfigLoader.h"
 
-CustomCreature::CustomCreature(AsgardGame *g, std::string name, int picture, int max_healt, int speed, int attack_strength) : Creature(g) {
+CustomCreature::CustomCreature(AsgardGame *g, std::string name, int picture, int max_health, int speed, int attack_strength) : Creature(g) {
 	c_name = name;
 	c_picture = picture;
-	c_maxhealt = max_healt;
-	healt = getMaxHealt();
+	c_maxhealth = max_health;
+	health = getMaxHealth();
 	c_speed = speed;
 
 	armor.setItem(HAND1, new Item("attack", '@', HAND1, attack_strength, 1, 0, 0, 0));
@@ -27,8 +27,8 @@ CustomCreature::CustomCreature(AsgardGame *g, std::string name, int picture, int
 CustomCreature::CustomCreature(AsgardGame *g, CreatureModel * m) : Creature(g) {
 	c_name = m->name;
 	c_picture = m->picture;
-	c_maxhealt = m->maxhealt;
-	healt = getMaxHealt();
+	c_maxhealth = m->maxhealth;
+	health = getMaxHealth();
 	c_speed = m->speed;
 	flags = m->flags;
 
@@ -47,6 +47,6 @@ void CustomCreature::drawCreature() {
 	addch(c_picture);
 }
 
-int CustomCreature::getMaxHealt() {
-	return c_maxhealt;
+int CustomCreature::getMaxHealth() {
+	return c_maxhealth;
 }

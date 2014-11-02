@@ -60,7 +60,7 @@ std::vector<CreatureModel*> ConfigLoader::parseCreatures(std::string file) {
 						m->picture |= A_BOLD;
 					}
 				} else if (op == "HP: ") {
-					m->maxhealt = atoi(arg.c_str());
+					m->maxhealth = atoi(arg.c_str());
 				} else if (op == "SPEED: ") {
 					m->speed = atoi(arg.c_str());
 				} else if (op == "ATK: ") {

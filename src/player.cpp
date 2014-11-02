@@ -40,17 +40,11 @@ bool Player::tryMove(int x, int y) {
 }
 
 void Player::takeDamage_Creature(Creature* enemy) {
-	// TODO taiat, muut suojaavat vaikutukset
-	int dmg = calculateDamage(enemy).damage;
+	Creature::takeDamage(enemy->calculateAttack(), "Hit missed.", "It was a great hit.", "", "You died!");
+}
 
-	healt -= dmg;
-	if (healt <= 0) {
-		game->message(std::string("You died!"));
-		healt = 0;
-		die();
-	} else {
-		//game->message(std::string("You scream in pain!"));
-	}
+void Player::takeDamage(DamageTo dmg) {
+	Creature::takeDamage(dmg, "", "", "", "You died!");
 }
 
 void Player::die() {
@@ -223,6 +217,6 @@ std::string Player::name() {
 	return "player"; // TODO
 }
 
-int Player::getMaxHealt() {
+int Player::getMaxHealth() {
 	return 20; // TODO
 }

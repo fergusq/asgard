@@ -20,10 +20,10 @@ public:
 
 	virtual std::string name();
 	virtual void drawCreature();
-	virtual int getMaxHealt();
+	virtual int getMaxHealth();
 private:
 	std::string c_name;
-	int c_maxhealt;
+	int c_maxhealth;
 };
 
 #endif /* CUSTOMCREATURE_H_ */

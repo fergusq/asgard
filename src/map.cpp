@@ -307,8 +307,8 @@ void Map::saveMap(std::ofstream *out) {
 	*out << game->player->picture() << '\n';
 	*out << game->player->x << '\n';
 	*out << game->player->y << '\n';
-	*out << game->player->getHealt() << '\n';
-	*out << game->player->getMaxHealt() << '\n';
+	*out << game->player->getHealth() << '\n';
+	*out << game->player->getMaxHealth() << '\n';
 	*out << game->player->speed() << '\n';
 	*out << game->player->flags << '\n';
 	*out << game->player->state << '\n';
@@ -354,8 +354,8 @@ void Map::saveMap(std::ofstream *out) {
 		*out << creatures[i]->picture() << '\n';
 		*out << creatures[i]->x << '\n';
 		*out << creatures[i]->y << '\n';
-		*out << creatures[i]->getHealt() << '\n';
-		*out << creatures[i]->getMaxHealt() << '\n';
+		*out << creatures[i]->getHealth() << '\n';
+		*out << creatures[i]->getMaxHealth() << '\n';
 		*out << creatures[i]->speed() << '\n';
 		*out << creatures[i]->flags << '\n';
 		*out << creatures[i]->state << '\n';
@@ -486,12 +486,12 @@ void Map::loadMap(std::ifstream *in) {
 			creature = new CustomCreature(game, name, pic, mh, s, 1);
 			creature->flags = f;
 			creature->state = AI_STATE(st);
-			creature->takeDamage(mh-h);
+			creature->setHealth(h);
 		} else { // pelaaja
 			creature = game->player;
 			creature->flags = f;
 			creature->state = AI_STATE(st);
-			creature->takeDamage(mh-h);
+			creature->setHealth(h);
 		}
 
 		for (int i = 0; i < 10; i++) {
