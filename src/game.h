@@ -27,7 +27,7 @@ public:
 	void message(std::string);
 	void drawShortCreatureInfo(Creature*);
 	void showMessageLog();
-	bool target(bool (*)(int, int));
+	bool target(bool (*)(AsgardGame*,int, int));
 
 	int getLevel();
 

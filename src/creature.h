@@ -37,6 +37,7 @@ public:
 	virtual bool tryMove(int, int);
 	virtual void takeDamage_Creature(Creature*);
 	virtual void takeDamage(DamageTo);
+	virtual void takeDamage(DamageTo, std::string, std::string);
 	void takeDamage(DamageTo, std::string, std::string, std::string, std::string);
 	virtual void die();
 	virtual void onTurn();

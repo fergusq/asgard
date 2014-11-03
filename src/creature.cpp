@@ -115,7 +115,11 @@ void Creature::takeDamage_Creature(Creature * enemy) {
 }
 
 void Creature::takeDamage(DamageTo dmg) {
-	takeDamage(dmg, "", "", "The " + name() + " screams in pain!", "The " + name() + " died!");
+	takeDamage(dmg, "", "");
+}
+
+void Creature::takeDamage(DamageTo dmg, std::string missed, std::string great) {
+	takeDamage(dmg, missed, great, "The " + name() + " screams in pain!", "The " + name() + " died!");
 }
 
 void Creature::takeDamage(DamageTo dmg, std::string missed, std::string great, std::string scream, std::string died) {

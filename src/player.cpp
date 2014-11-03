@@ -14,6 +14,7 @@
 #include "map.h"
 #include "game.h"
 #include "player.h"
+#include "magic.h"
 
 bool Player::tryMove(int x, int y) {
 	bool success = Creature::tryMove(x, y);
@@ -44,7 +45,11 @@ void Player::takeDamage_Creature(Creature* enemy) {
 }
 
 void Player::takeDamage(DamageTo dmg) {
-	Creature::takeDamage(dmg, "", "", "", "You died!");
+	Creature::takeDamage(dmg, "", "");
+}
+
+void Player::takeDamage(DamageTo dmg, std::string missed, std::string great) {
+	Creature::takeDamage(dmg, missed, great, "", "You died!");
 }
 
 void Player::die() {
@@ -167,6 +172,9 @@ void Player::onTurn() {
 			}
 			legalCommand = false;
 			break;
+		case 'm': // 'magic'
+			legalCommand = game->target(spell_fireball);
+			break;
 		case 'R': // 'rest' älä tee mitään
 		case '.':
 			game->message("Resting...");
@@ -177,7 +185,7 @@ void Player::onTurn() {
 			game->message("Game saved!");
 			legalCommand = false;
 			break;
-		case 'm': // 'message log' näytä loki
+		case 'M': // 'message log' näytä loki
 			game->showMessageLog();
 			legalCommand = false;
 			break;

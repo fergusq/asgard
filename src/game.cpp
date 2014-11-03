@@ -269,7 +269,7 @@ void AsgardGame::showMessageLog() {
 	while ((tmp = getch()) != 27 && tmp != 'q');
 }
 
-bool AsgardGame::target(bool (*callback)(int, int)) {
+bool AsgardGame::target(bool (*callback)(AsgardGame*,int, int)) {
 	int x = player->x;
 	int y = player->y;
 	int chr;
@@ -318,7 +318,7 @@ bool AsgardGame::target(bool (*callback)(int, int)) {
 			return false;
 		}
 	} while(chr != 10);
-	if (callback != 0) return callback(x, y);
+	if (callback != 0) return callback(this, x, y);
 	else return false;
 }
 

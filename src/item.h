@@ -13,22 +13,23 @@ struct ItemModel;
 #include <string>
 
 enum itemFlags {
-	POTION=0x02
+	POTION=1<<2,
+	BOW=1<<3
 };
 
-const char* const STR_POTION= "POTION";
-
 enum ItemPosition {
-	N_item=0,
-	HEAD=1,
-	BODY=2,
-	FOOT=3,
+	N_item=-1,
+	HEAD=0,
+	BODY=1,
+	FOOT=2,
+	SHIELD=3,
 	HAND1=4,
 	HAND2=5,
-	INVENTORY=6,
+	LONG_RANGE=6,
 	RING1=7,
 	RING2=8,
-	NECK=9
+	NECK=9,
+	INVENTORY=10
 };
 
 struct DamageTo {

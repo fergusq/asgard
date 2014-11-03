@@ -1,3 +1,4 @@
+
 /*
  * ConfigLoader.cpp
  *
@@ -134,6 +135,9 @@ std::vector<ItemModel*> ConfigLoader::parseItems(std::string file) {
 					if (arg == "HAND2") {
 						m->pos = HAND2;
 					}
+					if (arg == "LONG_RANGE") {
+						m->pos = LONG_RANGE;
+					}
 					if (arg == "HEAD") {
 						m->pos = HEAD;
 					}
@@ -142,6 +146,9 @@ std::vector<ItemModel*> ConfigLoader::parseItems(std::string file) {
 					}
 					if (arg == "FOOT") {
 						m->pos = FOOT;
+					}
+					if (arg == "SHIELD") {
+						m->pos = SHIELD;
 					}
 					if (arg == "RING1") {
 						m->pos = RING1;
@@ -166,7 +173,7 @@ std::vector<ItemModel*> ConfigLoader::parseItems(std::string file) {
 				} else if (op == "LEVEL: ") {
 					m->level = atoi(arg.c_str());
 				} else if (op == "FLAG: ") {
-					if (arg == STR_POTION) {
+					if (arg == "POTION") {
 						m->flags |= POTION;
 					}
 				}
